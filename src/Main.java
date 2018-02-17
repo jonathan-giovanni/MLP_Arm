@@ -1,6 +1,7 @@
 import coordinates.Angle;
 import coordinates.Cartesian;
 import kinematics.ForwardK;
+import kinematics.InverseK;
 
 public class Main {
 
@@ -19,9 +20,17 @@ public class Main {
         System.out.println("Angulos de evaluacion     : q1 -> "+q[0]+" q2 -> "+q[1]+" q3-> "+q[2]);
 
         coord_cartesian = fk.getCartesian(q, Angle.DEGREES);
-        orientacion = fk.getOrientation();
 
-        System.out.println("Coordenadas X,Y y Orientacion : "+coord_cartesian.X + " , "+ coord_cartesian.Y + " , "+orientacion);
+        System.out.println("Coordenadas X,Y y Z : "+coord_cartesian.X + " , "+ coord_cartesian.Y + " , "+coord_cartesian.Z);
+        System.out.println("---------------------------------------");
+        System.out.println("Cinematica inversa");
+        System.out.println("Coordenadas de entrada X,Y y Z : "+coord_cartesian.X + " , "+ coord_cartesian.Y + " , "+coord_cartesian.Z);
+
+        InverseK ik = new InverseK(l);
+        double q2[] = ik.getAngles(coord_cartesian,Angle.DEGREES);
+        System.out.println("Angulos de fk : q1 -> "+q[0]+" q2 -> "+q[1]+" q3-> "+q[2]);
+        System.out.println("Angulos de ik : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
+
 
 
 

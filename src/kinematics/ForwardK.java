@@ -3,15 +3,17 @@ package kinematics;
 import coordinates.Angle;
 import coordinates.Cartesian;
 
+/*
+    Basado en la investigación:
+    http://www.utm.mx/~hugo/robot/Robot2.pdf
+*/
+
 public class ForwardK {
     private Cartesian coord_cartesian;
     private double Q[];
     private double L[];
 
-    private double Orientation;
-
     public ForwardK(double[] l) {
-
         L = l;
     }
     public Cartesian getCartesian(double []q, Angle angle){
@@ -21,14 +23,15 @@ public class ForwardK {
             for(int i=0;i<Q.length;i++)
                 Q[i] = (Q[i]/180)*Math.PI;
 
-        coord_cartesian.X = L[0]*Math.cos(Q[0]) + L[1]*Math.cos(Q[0]+Q[1]) + L[2]*Math.cos(Q[0]+Q[1]+Q[2]);
-        coord_cartesian.Y = L[0]*Math.sin(Q[0]) + L[1]*Math.sin(Q[0]+Q[1]) + L[2]*Math.sin(Q[0]+Q[1]+Q[2]);
-        Orientation       = Math.atan(coord_cartesian.Y/coord_cartesian.X);
-        Orientation       = (angle == Angle.DEGREES)?Orientation * (180/Math.PI):Orientation;
-        return coord_cartesian;
-    }
+        double h  = L[1]*Math.cos(Q[1]) + L[2]*Math.cos(Q[1]+Q[2]);
+        //double c  = Math.sqrt( Math.pow(L[1],2) + Math.pow(L[2],2) + 2*L[1]*L[2]*Math.cos(Q[2]));
+        coord_cartesian.X = h*Math.cos(Q[0]);
+        coord_cartesian.Y = h*Math.sin(Q[0]);
+        coord_cartesian.Z = L[0]+L[1]*Math.sin(Q[1])+L[2]*Math.sin(Q[1]+Q[2]);
 
-    public double getOrientation() {
-        return Orientation;
+        if(angle==Angle.DEGREES)
+            for(int i=0;i<Q.length;i++)
+                Q[i] = Q[i]*(180/Math.PI);
+        return coord_cartesian;
     }
 }
