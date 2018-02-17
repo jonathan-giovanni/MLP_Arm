@@ -2,6 +2,7 @@ import coordinates.Angle;
 import coordinates.Cartesian;
 import kinematics.ForwardK;
 import kinematics.InverseK;
+import processing.core.PApplet;
 
 public class Main {
 
@@ -30,5 +31,7 @@ public class Main {
 
         System.out.println("Angulos de fk : q1 -> "+q[0]+" q2 -> "+q[1]+" q3-> "+q[2]);
         System.out.println("Angulos de ik : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
+
+        PApplet.main(new String[]{"gui.Window"});
     }
 }
