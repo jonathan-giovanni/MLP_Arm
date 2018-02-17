@@ -14,14 +14,14 @@ public class Window extends PApplet {
 
     @Override
     public void settings() {
-        size(400, 400, P3D);
-        //fullScreen(P3D);
+        //size(400, 400, P3D);
+        fullScreen(P3D);
 
     }
 
     @Override
     public void setup() {
-        strokeWeight(2);
+        strokeWeight(1);
         smooth();
         origin  = new PVector(width / 2, height / 2,0);
         size    = 2000;
@@ -29,16 +29,19 @@ public class Window extends PApplet {
 
     @Override
     public void draw() {
+        translate(origin.x,origin.y,origin.z);
 
+        scale(1.5f);
 
-        background(255);
+        background(105);
         //draw original coordinate system
 
         //draw from centre and rotate with mouse
-        translate((float)(width * 0.5), (float)(height * 0.5), 0);
 
-        float rX=map(mouseY,0,height,-PI,PI);
-        float rY=map(mouseX,0,width,PI,-PI);
+
+
+        float rX=  map(mouseY,0,height,-PI,PI);
+        float rY=  map(mouseX,0,width,PI,-PI);
         rotateX(rX);
         rotateY(rY);
 
@@ -53,13 +56,22 @@ public class Window extends PApplet {
 
     private void drawAxes() {
 
+        float margin = 100;
+
         //X rojo
+        text("+X",margin,0,0);
+        text("-X",-margin,0,0);
         stroke(250, 0, 0);
         line(-size,0,0,size,0,0);
         //Y verde
+
+        text("-Y",0,margin,0);
+        text("+Y",0,-margin,0);
         stroke(0, 250, 0);
         line(0,-size,0,0,size,0);
         //Z azul
+        text("+Z",0,0,margin);
+        text("-Z",0,0,-margin);
         stroke(0, 0, 250);
         line(0, 0, -size,0,0, size);
     }
