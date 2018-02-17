@@ -2,15 +2,73 @@ package gui;
 
 import arm.Arm;
 import kinematics.InverseK;
-import processing.core.PApplet;
-import processing.core.PShape;
-import processing.core.PVector;
+import processing.core.*;
 
 import java.util.Scanner;
 
 
 public class Window extends PApplet {
 
+    float size;
+    PVector origin;
+
+    @Override
+    public void settings() {
+        size(400, 400, P3D);
+        //fullScreen(P3D);
+
+    }
+
+    @Override
+    public void setup() {
+        strokeWeight(2);
+        smooth();
+        origin  = new PVector(width / 2, height / 2,0);
+        size    = 2000;
+    }
+
+    @Override
+    public void draw() {
+
+
+        background(255);
+        //draw original coordinate system
+
+        //draw from centre and rotate with mouse
+        translate((float)(width * 0.5), (float)(height * 0.5), 0);
+
+        float rX=map(mouseY,0,height,-PI,PI);
+        float rY=map(mouseX,0,width,PI,-PI);
+        rotateX(rX);
+        rotateY(rY);
+
+        System.out.println("rotacion X "+rX);
+        System.out.println("rotacion Y "+rY);
+
+
+        //draw centred coordinate system
+        drawAxes();
+
+    }
+
+    private void drawAxes() {
+
+        //X rojo
+        stroke(250, 0, 0);
+        line(-size,0,0,size,0,0);
+        //Y verde
+        stroke(0, 250, 0);
+        line(0,-size,0,0,size,0);
+        //Z azul
+        stroke(0, 0, 250);
+        line(0, 0, -size,0,0, size);
+    }
+    public void mouseDragged() {
+        //rotateX(map(mouseY,0,height,-PI,PI));
+        //rotateY(map(mouseX,0,width,PI,-PI));
+
+    }
+    /*
     Scanner scanner = new Scanner( System.in );
 
     //arm 3d
@@ -77,7 +135,7 @@ public class Window extends PApplet {
         System.out.println( "Pos Y : " + y);
         System.out.println( "Pos Z : " + z);
 
-        /*
+
         double angles[] = ik.evaluate(x,y,z);
 
 
@@ -88,8 +146,9 @@ public class Window extends PApplet {
         System.out.println( "alpha : " + angles[0]);
         System.out.println( "beta  : " + angles[1]);
         System.out.println( "gamma : " + angles[2]);
-        */
+
     }
+    */
 
 
 }
