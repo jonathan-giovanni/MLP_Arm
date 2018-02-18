@@ -1,18 +1,17 @@
 package arm;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PShape;
 
 public class Arm {
-
-
     double F = 50;
     double T = 70;
 
+    float alphaColor;
+
     PApplet context;
     PShape base, shoulder, upArm, loArm, end;
-    public double rotX, rotY;
-    double posX=1, posY=90, posZ=50;
     double alpha, beta, gamma;
 
 
@@ -25,9 +24,13 @@ public class Arm {
         loArm       = context.loadShape("r3.obj");
         end         = context.loadShape("r4.obj");
 
+        alphaColor = 40.0f;
+
         shoulder.disableStyle();
         upArm.disableStyle();
         loArm.disableStyle();
+
+
     }
 
 
@@ -43,33 +46,34 @@ public class Arm {
 
         context.noStroke();
 
-        context.translate(context.width/2,context.height/2);
-        context.rotateX((float) rotX);
-        context.rotateY((float)-rotY);
-        context.scale(-4);
+        context.scale(-1.20f);
 
-        context.fill(255, 227, 8);
-        context.translate(0,-40,0);
+        //gamma = (PApplet.radians(context.frameCount));
+
+        //base no rotatoria
+        context.fill(255, 227, 8,alphaColor);
+        context.translate(0,26,0);
         context.shape(base);
-
+        //base rotatoria
         context.translate(0, 4, 0);
         context.rotateY((float) gamma);
         context.shape(shoulder);
-        //#42f483
-        context.fill(66, 244, 131);
+        //antebrazo
+        context.fill(66, 244, 131,alphaColor);
         context.translate(0, 25, 0);
         context.rotateY(context.PI);
         context.rotateX((float) alpha);
         context.shape(upArm);
-
+        //brazo
         context.translate(0, 0, 50);
         context.rotateY(context.PI);
         context.rotateX((float) beta);
         context.shape(loArm);
-
+        //orientacion (NO USADA)
         context.translate(0, 0, -50);
         context.rotateY(context.PI);
         context.shape(end);
+
     }
 
 

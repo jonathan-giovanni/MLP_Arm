@@ -16,6 +16,8 @@ public class Window extends PApplet {
 
     float rX,rY,zoom;
 
+    Arm arm;
+
     @Override
     public void settings() {
         //size(400, 400, P3D);
@@ -33,23 +35,66 @@ public class Window extends PApplet {
         zoom    = 1.5f;
         rX      = -0.51f;
         rY      = -0.65f;
+        arm     = new Arm(this);
 
     }
 
     @Override
     public void draw() {
         background(70);
+        lights();
+        directionalLight(51, 102, 126, -1, 0, 0);
+
         translate(origin.x,origin.y,origin.z);
+
 
         scale(zoom);
         userInput();
         drawAxes();
+
+        hint(ENABLE_DEPTH_TEST);
+
+        //70 de altura
+
+
+        pushMatrix();
+        noStroke();
+        translate(0, -35, 0);
+        fill(0, 220, 0,40);
+        box(10,70,10);
+        popMatrix();
+
+        //antebrazo 60
+        pushMatrix();
+        noStroke();
+        translate(0, -66, 30);
+        rotateX(PI/2);
+        fill(0, 0, 240,40);
+        box(10,60,10);
+        popMatrix();
+
+        //brazo 80
+        pushMatrix();
+        noStroke();
+        translate(0, -66, 95);
+        rotateX(PI/2);
+        fill(100, 0, 220,40);
+        box(10,80,10);
+        popMatrix();
+
+
+
+        arm.drawArm();
+
+        //pruebas
+
+
     }
 
     private void userInput(){
         if(mousePressed){
-            rX   -= (mouseY - pmouseY) * 0.0025f;//map(mouseY,0,height,-PI,PI);
-            rY   -= (mouseX - pmouseX) * 0.0025f;// map(mouseX,0,width,PI,-PI);
+            rX   -= (mouseY - pmouseY) * 0.002f;//map(mouseY,0,height,-PI,PI);
+            rY   -= (mouseX - pmouseX) * 0.002f;// map(mouseX,0,width,PI,-PI);
         }
         rotateX(rX);
         rotateY(rY);
@@ -65,7 +110,7 @@ public class Window extends PApplet {
     }
 
     private void drawAxes() {
-        float margin = 100;
+        float margin = 150;
 
         //X rojo
         text("+X",margin,0,0);
@@ -131,8 +176,7 @@ public class Window extends PApplet {
         hint(ENABLE_DEPTH_TEST);
         background(170);
         smooth();
-        lights();
-        directionalLight(51, 102, 126, -1, 0, 0);
+
         drawAxis();
         genericArm.drawArm();
     }
