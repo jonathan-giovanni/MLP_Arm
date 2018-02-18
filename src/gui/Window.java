@@ -1,8 +1,10 @@
 package gui;
 
 import arm.Arm;
+import javafx.scene.input.KeyCode;
 import kinematics.InverseK;
 import processing.core.*;
+import processing.event.KeyEvent;
 
 import java.util.Scanner;
 
@@ -11,6 +13,8 @@ public class Window extends PApplet {
 
     float size;
     PVector origin;
+
+    float rX,rY,zoom;
 
     @Override
     public void settings() {
@@ -23,62 +27,73 @@ public class Window extends PApplet {
     public void setup() {
         strokeWeight(1);
         smooth();
+        textMode(SHAPE);
         origin  = new PVector(width / 2, height / 2,0);
         size    = 2000;
+        zoom    = 1.5f;
+        rX      = -0.51f;
+        rY      = -0.65f;
+
     }
 
     @Override
     public void draw() {
+        background(70);
         translate(origin.x,origin.y,origin.z);
 
-        scale(1.5f);
+        scale(zoom);
+        userInput();
+        drawAxes();
+    }
 
-        background(105);
-        //draw original coordinate system
-
-        //draw from centre and rotate with mouse
-
-
-
-        float rX=  map(mouseY,0,height,-PI,PI);
-        float rY=  map(mouseX,0,width,PI,-PI);
+    private void userInput(){
+        if(mousePressed){
+            rX   -= (mouseY - pmouseY) * 0.0025f;//map(mouseY,0,height,-PI,PI);
+            rY   -= (mouseX - pmouseX) * 0.0025f;// map(mouseX,0,width,PI,-PI);
+        }
         rotateX(rX);
         rotateY(rY);
 
-        System.out.println("rotacion X "+rX);
-        System.out.println("rotacion Y "+rY);
-
-
-        //draw centred coordinate system
-        drawAxes();
-
+        if(keyPressed){
+            if(keyCode == UP){
+                zoom += 0.01f;
+            }
+            if(keyCode == DOWN){
+                zoom -= 0.01f;
+            }
+        }
     }
 
     private void drawAxes() {
-
         float margin = 100;
 
         //X rojo
         text("+X",margin,0,0);
         text("-X",-margin,0,0);
-        stroke(250, 0, 0);
+        stroke(210, 0, 0);
         line(-size,0,0,size,0,0);
-        //Y verde
 
+        //Y verde
         text("-Y",0,margin,0);
         text("+Y",0,-margin,0);
-        stroke(0, 250, 0);
+        stroke(0, 210, 0);
         line(0,-size,0,0,size,0);
+
         //Z azul
         text("+Z",0,0,margin);
         text("-Z",0,0,-margin);
-        stroke(0, 0, 250);
+        stroke(0, 0, 210);
         line(0, 0, -size,0,0, size);
     }
     public void mouseDragged() {
         //rotateX(map(mouseY,0,height,-PI,PI));
         //rotateY(map(mouseX,0,width,PI,-PI));
 
+
+        //float rX=  map(mouseY,0,height,-PI,PI);
+        //float rY=  map(mouseX,0,width,PI,-PI);
+        //rotateX(rX);
+        //rotateY(rY);
     }
     /*
     Scanner scanner = new Scanner( System.in );
