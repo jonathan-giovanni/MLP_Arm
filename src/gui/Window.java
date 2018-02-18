@@ -1,7 +1,10 @@
 package gui;
 
 import arm.Arm;
+import coordinates.Angle;
+import coordinates.Cartesian;
 import javafx.scene.input.KeyCode;
+import kinematics.ForwardK;
 import kinematics.InverseK;
 import processing.core.*;
 import processing.event.KeyEvent;
@@ -13,10 +16,11 @@ public class Window extends PApplet {
 
     float size;
     PVector origin;
-
     float rX,rY,zoom;
+    Cartesian coord_cartesian;
 
     Arm arm;
+    InverseK ik;
 
     @Override
     public void settings() {
@@ -36,7 +40,18 @@ public class Window extends PApplet {
         rX      = -0.51f;
         rY      = -0.65f;
         arm     = new Arm(this);
+        ik      = new InverseK(arm.getL());
 
+        //TODO se puede hacer pruebas aqui
+        arm.setAngles(new double[]{45,20,20},Angle.DEGREES);
+        //ForwardK fk = new ForwardK(arm.getL());
+        //coord_cartesian = fk.getCartesian(new double[]{45,-10,-40},Angle.DEGREES);
+        //arm.setAngles(ik.getAngles(coord_cartesian,Angle.DEGREES),Angle.DEGREES);
+
+
+        //System.out.println("Coordenadas X,Y y Z : "+coord_cartesian.getX() + " , "+ coord_cartesian.getY() + " , "+coord_cartesian.getZ());
+        //arm.setAngles(ik.getAngles(new Cartesian(0,0,130),Angle.RADIANS),Angle.RADIANS);
+        //TODO hasta aqui
     }
 
     @Override
@@ -47,17 +62,24 @@ public class Window extends PApplet {
 
         translate(origin.x,origin.y,origin.z);
 
-
         scale(zoom);
         userInput();
         drawAxes();
 
         hint(ENABLE_DEPTH_TEST);
 
+        pushMatrix();
+        noStroke();
+        //TODO se puede hacer prueba aqui
+        translate(80,-50, 80);
+        //TODO hasta aqui
+        sphere(5);
+        popMatrix();
+
         //70 de altura
 
 
-        pushMatrix();
+        /*pushMatrix();
         noStroke();
         translate(0, -35, 0);
         fill(0, 220, 0,40);
@@ -81,12 +103,16 @@ public class Window extends PApplet {
         fill(100, 0, 220,40);
         box(10,80,10);
         popMatrix();
+        */
 
 
 
-        arm.drawArm();
+        pushMatrix();
+            arm.drawArm();
+        popMatrix();
 
-        //pruebas
+        //valores : base - brazo - antebrazo
+        //arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
 
 
     }
@@ -130,96 +156,4 @@ public class Window extends PApplet {
         stroke(0, 0, 210);
         line(0, 0, -size,0,0, size);
     }
-    public void mouseDragged() {
-        //rotateX(map(mouseY,0,height,-PI,PI));
-        //rotateY(map(mouseX,0,width,PI,-PI));
-
-
-        //float rX=  map(mouseY,0,height,-PI,PI);
-        //float rY=  map(mouseX,0,width,PI,-PI);
-        //rotateX(rX);
-        //rotateY(rY);
-    }
-    /*
-    Scanner scanner = new Scanner( System.in );
-
-    //arm 3d
-    Arm genericArm;
-    //inverse kinematic
-    InverseK ik;
-
-    double posX = 1, posY = 60, posZ = 60;
-    PVector origin;
-
-
-    @Override
-    public void settings() {
-        size(1280, 800, P3D);
-        //fullScreen(P3D);
-        origin = new PVector(width / 2, height / 2,0);
-
-    }
-
-    @Override
-    public void setup() {
-        //surface.setResizable(true);
-        genericArm  = new Arm(this);
-        //colorMode(HSB, 100, 100, 100, 100);
-        //frameRate(60);
-
-        IkToArm(posX,posY,posZ);
-    }
-
-    @Override
-    public void draw() {
-
-        hint(ENABLE_DEPTH_TEST);
-        background(170);
-        smooth();
-
-        drawAxis();
-        genericArm.drawArm();
-    }
-
-    private void drawAxis() {
-        translate(0, 0, 0);
-        stroke(0, 0, 250);
-        line(0, origin.y, width, origin.y);//azul y
-        stroke(250, 0, 0);
-        line(origin.x, 0, origin.x, height);//rojo x
-        stroke(0, 250, 0);
-        line(-origin.x, height, origin.x, origin.y);//verde z
-        line(origin.x, origin.y, width * 2, -origin.y);//z
-    }
-
-    public void mouseDragged() {
-        genericArm.rotY -= (mouseX - pmouseX) * 0.01;
-        genericArm.rotX -= (mouseY - pmouseY) * 0.01;
-    }
-
-
-
-
-    private void IkToArm(double x,double y,double z){
-
-        System.out.println( "Pos X : " + x);
-        System.out.println( "Pos Y : " + y);
-        System.out.println( "Pos Z : " + z);
-
-
-        double angles[] = ik.evaluate(x,y,z);
-
-
-        genericArm.drawArm(angles[0],angles[1],angles[2]);
-
-        // 4. Now, you can do anything with the input string that you need to.
-        // Like, output it to the user.
-        System.out.println( "alpha : " + angles[0]);
-        System.out.println( "beta  : " + angles[1]);
-        System.out.println( "gamma : " + angles[2]);
-
-    }
-    */
-
-
 }

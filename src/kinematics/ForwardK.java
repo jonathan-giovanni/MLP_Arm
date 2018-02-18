@@ -25,9 +25,15 @@ public class ForwardK {
 
         double h  = L[1]*Math.cos(Q[1]) + L[2]*Math.cos(Q[1]+Q[2]);
         //double c  = Math.sqrt( Math.pow(L[1],2) + Math.pow(L[2],2) + 2*L[1]*L[2]*Math.cos(Q[2]));
-        coord_cartesian.setX( h*Math.cos(Q[0]));
-        coord_cartesian.setY( h*Math.sin(Q[0]));
-        coord_cartesian.setZ( L[0]+L[1]*Math.sin(Q[1])+L[2]*Math.sin(Q[1]+Q[2]));
+
+        //ordenando
+        //x->y
+        //y->z
+        //z->x
+
+        coord_cartesian.setX(h*Math.sin(Q[0]));
+        coord_cartesian.setY(L[0]+L[1]*Math.sin(Q[1])+L[2]*Math.sin(Q[1]+Q[2]));
+        coord_cartesian.setZ(h*Math.cos(Q[0]));
 
         if(angle==Angle.DEGREES)
             for(int i=0;i<Q.length;i++)
