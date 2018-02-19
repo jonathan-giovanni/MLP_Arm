@@ -21,7 +21,6 @@ public class Window extends PApplet {
 
     Arm arm;
     InverseK ik;
-
     @Override
     public void settings() {
         //size(400, 400, P3D);
@@ -41,17 +40,32 @@ public class Window extends PApplet {
         rY      = -0.65f;
         arm     = new Arm(this);
         ik      = new InverseK(arm.getL());
+/***
+ *              RANGO DE ANGULOS VALIDOS SOBRE LOS EJES
+ *              X     -X        Z        -Z        Y
+ *              _________________________________________
+ * L1 ->        90     -90      0       -180
+ * L2 ->        0                                  90
+ * L3 ->        -90     -90                         0
+ * */
+
 
         //TODO se puede hacer pruebas aqui
-        arm.setAngles(new double[]{45,20,20},Angle.DEGREES);
-        //ForwardK fk = new ForwardK(arm.getL());
-        //coord_cartesian = fk.getCartesian(new double[]{45,-10,-40},Angle.DEGREES);
+        //arm.setAngles(new double[]{45,20,20},Angle.DEGREES);
+        ForwardK fk = new ForwardK(arm.getL());
+        coord_cartesian = fk.getCartesian(new double[]{45,-20,20},Angle.DEGREES);
         //arm.setAngles(ik.getAngles(coord_cartesian,Angle.DEGREES),Angle.DEGREES);
 
-
-        //System.out.println("Coordenadas X,Y y Z : "+coord_cartesian.getX() + " , "+ coord_cartesian.getY() + " , "+coord_cartesian.getZ());
+        // calculando ik
+        InverseK ik2 = new InverseK(arm.getL());
+        arm.setAngles(ik2.getAngles(coord_cartesian,Angle.DEGREES),Angle.DEGREES);
+        double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
+        System.out.println("Angulos de ik2 : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
+        // System.out.println("Coordenadas X,Y y Z : "+coord_cartesian.getX() + " , "+ coord_cartesian.getY() + " , "+coord_cartesian.getZ());
         //arm.setAngles(ik.getAngles(new Cartesian(0,0,130),Angle.RADIANS),Angle.RADIANS);
         //TODO hasta aqui
+
+
     }
 
     @Override
@@ -108,7 +122,7 @@ public class Window extends PApplet {
 
 
         pushMatrix();
-            arm.drawArm();
+        arm.drawArm();
         popMatrix();
 
         //valores : base - brazo - antebrazo
