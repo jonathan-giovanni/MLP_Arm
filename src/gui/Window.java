@@ -53,8 +53,9 @@ public class Window extends PApplet {
         //TODO se puede hacer pruebas aqui
         //arm.setAngles(new double[]{45,20,20},Angle.DEGREES);
         ForwardK fk = new ForwardK(arm.getL());
-        coord_cartesian = fk.getCartesian(new double[]{45,-20,20},Angle.DEGREES);
+        //coord_cartesian = fk.getCartesian(new double[]{45,-20,20},Angle.DEGREES);
         //arm.setAngles(ik.getAngles(coord_cartesian,Angle.DEGREES),Angle.DEGREES);
+        coord_cartesian = new Cartesian(60,-100,70);
 
         // calculando ik
         InverseK ik2 = new InverseK(arm.getL());
@@ -85,7 +86,7 @@ public class Window extends PApplet {
         pushMatrix();
         noStroke();
         //TODO se puede hacer prueba aqui
-        translate(80,-50, 80);
+        translate((float)coord_cartesian.getX(),(float)-coord_cartesian.getY(), (float) coord_cartesian.getZ());
         //TODO hasta aqui
         sphere(5);
         popMatrix();

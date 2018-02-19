@@ -18,7 +18,7 @@ public class Arm {
         context     = pApplet;
 
         //TODO se puede modificar la longitud de cada elemento
-        L = new double[]{66,70,62};
+        L = new double[]{50,50,80};
         //TODO hasta aqui
         Q = new double[]{0,0,0};
 

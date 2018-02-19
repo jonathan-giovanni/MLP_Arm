@@ -26,7 +26,7 @@ public class InverseK {
         );
         double Q[] = new double[3];
         Q[0] = Math.atan2(coord.getX(),coord.getZ());
-        Q[1] = gamma - alfa;
+        Q[1] = -1*(gamma - alfa);
         Q[2] = Math.acos(
                 ( Math.pow(c,2) - Math.pow(L[1],2) - Math.pow(L[2],2) )/
                 (2*L[1]*L[2])
