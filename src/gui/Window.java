@@ -55,7 +55,7 @@ public class Window extends PApplet {
         ForwardK fk = new ForwardK(arm.getL());
         //coord_cartesian = fk.getCartesian(new double[]{45,-20,20},Angle.DEGREES);
         //arm.setAngles(ik.getAngles(coord_cartesian,Angle.DEGREES),Angle.DEGREES);
-        coord_cartesian = new Cartesian(60,-100,70);
+        coord_cartesian = new Cartesian(60,40,70);
 
         // calculando ik
         InverseK ik2 = new InverseK(arm.getL());
