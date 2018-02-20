@@ -16,9 +16,10 @@ public class Cartesian {
     }
 
     public Cartesian(double x, double y, double z) {
-        X = (x>MIN)?x:0;
-        Y = (y>MIN)?y:0;
-        Z = (z>MIN)?z:0;
+        //X = (x>MIN)?x:0;
+        //Y = (y>MIN)?y:0;
+        //Z = (z>MIN)?z:0;
+        X=x;Y=y;Z=z;
     }
     public void setX(double x){
         X = (x>MIN)?x:0;

@@ -55,13 +55,15 @@ public class Window extends PApplet {
         ForwardK fk = new ForwardK(arm.getL());
         //coord_cartesian = fk.getCartesian(new double[]{45,-20,20},Angle.DEGREES);
         //arm.setAngles(ik.getAngles(coord_cartesian,Angle.DEGREES),Angle.DEGREES);
-        coord_cartesian = new Cartesian(60,40,70);
+        coord_cartesian = new Cartesian(90,40,70);
 
         // calculando ik
         InverseK ik2 = new InverseK(arm.getL());
-        arm.setAngles(ik2.getAngles(coord_cartesian,Angle.DEGREES),Angle.DEGREES);
         double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
-        System.out.println("Angulos de ik2 : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
+        //q2[1]-=90;
+        arm.setAngles(q2,Angle.DEGREES);
+
+        System.out.println("--Angulos de ik2 : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
         // System.out.println("Coordenadas X,Y y Z : "+coord_cartesian.getX() + " , "+ coord_cartesian.getY() + " , "+coord_cartesian.getZ());
         //arm.setAngles(ik.getAngles(new Cartesian(0,0,130),Angle.RADIANS),Angle.RADIANS);
         //TODO hasta aqui
@@ -86,9 +88,10 @@ public class Window extends PApplet {
         pushMatrix();
         noStroke();
         //TODO se puede hacer prueba aqui
+        fill(250, 100, 1);
         translate((float)coord_cartesian.getX(),(float)-coord_cartesian.getY(), (float) coord_cartesian.getZ());
         //TODO hasta aqui
-        sphere(5);
+        sphere(4);
         popMatrix();
 
         //70 de altura
