@@ -5,6 +5,8 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PShape;
 
+import static java.lang.Math.PI;
+
 public class Arm {
     double F = 50;
     double T = 70;
@@ -18,7 +20,7 @@ public class Arm {
         context     = pApplet;
 
         //TODO se puede modificar la longitud de cada elemento
-        L = new double[]{50,50,80};
+        L = new double[]{50,55,75};
         //TODO hasta aqui
         Q = new double[]{0,0,0};
 
@@ -37,7 +39,7 @@ public class Arm {
         Q = q;
             if(angle==Angle.DEGREES)
                 for(int i=0;i<Q.length;i++)
-                    Q[i] = (Q[i]/180)*Math.PI;
+                    Q[i] = (Q[i]/180)* PI;
     }
 
     public void drawArm(){
@@ -47,6 +49,7 @@ public class Arm {
         //base no rotatoria
         context.fill(255, 227, 8);
         context.translate(0,26,0);
+        //context.rotateZ(PConstants.PI/2);
         context.shape(base);
         //base rotatoria
         context.translate(0, 4, 0);

@@ -55,12 +55,14 @@ public class Window extends PApplet {
         ForwardK fk = new ForwardK(arm.getL());
         //coord_cartesian = fk.getCartesian(new double[]{45,-20,20},Angle.DEGREES);
         //arm.setAngles(ik.getAngles(coord_cartesian,Angle.DEGREES),Angle.DEGREES);
-        coord_cartesian = new Cartesian(90,40,70);
+
+        coord_cartesian = new Cartesian(90,10,70);
+
 
         // calculando ik
         InverseK ik2 = new InverseK(arm.getL());
         double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
-        //q2[1]-=90;
+        //q2[0]+=180;
         arm.setAngles(q2,Angle.DEGREES);
 
         System.out.println("--Angulos de ik2 : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
@@ -79,6 +81,7 @@ public class Window extends PApplet {
 
         translate(origin.x,origin.y,origin.z);
 
+
         scale(zoom);
         userInput();
         drawAxes();
@@ -91,7 +94,7 @@ public class Window extends PApplet {
         fill(250, 100, 1);
         translate((float)coord_cartesian.getX(),(float)-coord_cartesian.getY(), (float) coord_cartesian.getZ());
         //TODO hasta aqui
-        sphere(4);
+        sphere(2);
         popMatrix();
 
         //70 de altura
