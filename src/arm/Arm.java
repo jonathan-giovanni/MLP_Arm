@@ -2,14 +2,11 @@ package arm;
 
 import coordinates.Angle;
 import processing.core.PApplet;
-import processing.core.PConstants;
 import processing.core.PShape;
 
 import static java.lang.Math.PI;
 
 public class Arm {
-    double F = 50;
-    double T = 70;
 
     PApplet context;
     PShape base, shoulder, upArm, loArm, end;
@@ -18,12 +15,10 @@ public class Arm {
 
     public Arm(PApplet pApplet){
         context     = pApplet;
-
         //TODO se puede modificar la longitud de cada elemento
         L = new double[]{50,55,75};
         //TODO hasta aqui
         Q = new double[]{0,0,0};
-
         base        = context.loadShape("r5.obj");
         shoulder    = context.loadShape("r1.obj");
         upArm       = context.loadShape("r2.obj");

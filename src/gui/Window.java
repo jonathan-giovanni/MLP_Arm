@@ -42,30 +42,33 @@ public class Window extends PApplet {
         ik      = new InverseK(arm.getL());
 /***
  *              RANGO DE ANGULOS VALIDOS SOBRE LOS EJES
- *              X     -X        Z        -Z        Y
- *              _________________________________________
- * L1 ->        90     -90      0       -180
- * L2 ->        0                                  90
- * L3 ->        -90     -90                         0
+ *              ________________________________________
+ *          q1 = {0,360}  -> vuelta completa
+ *          q2 = {40,-90} -> negativos hacia arriba
+ *          q3 = {-90,90} -> negativos hacia abajo
  * */
 
 
         //TODO se puede hacer pruebas aqui
         //arm.setAngles(new double[]{45,20,20},Angle.DEGREES);
         ForwardK fk = new ForwardK(arm.getL());
-        //coord_cartesian = fk.getCartesian(new double[]{45,-20,20},Angle.DEGREES);
-        //arm.setAngles(ik.getAngles(coord_cartesian,Angle.DEGREES),Angle.DEGREES);
+        //coord_cartesian = fk.getCartesian(new double[]{0,0,0},Angle.DEGREES);
 
-        coord_cartesian = new Cartesian(90,10,70);
+
+        arm.setAngles(new double[]{0,0,0},Angle.DEGREES);
+
+        coord_cartesian = new Cartesian();
+
+        //coord_cartesian = new Cartesian(90,10,70);
 
 
         // calculando ik
-        InverseK ik2 = new InverseK(arm.getL());
-        double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
+        //InverseK ik2 = new InverseK(arm.getL());
+        //double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
         //q2[0]+=180;
-        arm.setAngles(q2,Angle.DEGREES);
+        //arm.setAngles(q2,Angle.DEGREES);
 
-        System.out.println("--Angulos de ik2 : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
+        //System.out.println("--Angulos de ik2 : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
         // System.out.println("Coordenadas X,Y y Z : "+coord_cartesian.getX() + " , "+ coord_cartesian.getY() + " , "+coord_cartesian.getZ());
         //arm.setAngles(ik.getAngles(new Cartesian(0,0,130),Angle.RADIANS),Angle.RADIANS);
         //TODO hasta aqui
