@@ -38,11 +38,11 @@ public class Arm {
     }
 
     public void drawArm(){
-        context.noStroke();
+        //context.noStroke();
         context.scale(-1.20f);
 
         //base no rotatoria
-        context.fill(255, 227, 8);
+        context.fill(255, 200, 10,100);
         context.translate(0,26,0);
         //context.rotateZ(PConstants.PI/2);
         context.shape(base);
@@ -51,7 +51,7 @@ public class Arm {
         context.rotateY((float) Q[0]);
         context.shape(shoulder);
         //antebrazo
-        context.fill(66, 244, 131,40);
+        context.fill(60, 200, 130);
         context.translate(0, 25, 0);
         context.rotateY(context.PI);
         context.rotateX((float) Q[1]);

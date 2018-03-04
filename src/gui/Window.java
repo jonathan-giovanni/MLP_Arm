@@ -54,7 +54,6 @@ public class Window extends PApplet {
         ForwardK fk = new ForwardK(arm.getL());
         //coord_cartesian = fk.getCartesian(new double[]{0,0,0},Angle.DEGREES);
 
-
         arm.setAngles(new double[]{0,0,0},Angle.DEGREES);
 
         coord_cartesian = new Cartesian();
@@ -78,9 +77,9 @@ public class Window extends PApplet {
 
     @Override
     public void draw() {
-        background(70);
+        background(255);
         lights();
-        directionalLight(51, 102, 126, -1, 0, 0);
+        directionalLight(40, 90, 100, 1, 40, 40);
 
         translate(origin.x,origin.y,origin.z);
 
@@ -160,23 +159,23 @@ public class Window extends PApplet {
     }
 
     private void drawAxes() {
-        float margin = 150;
+        float margin = 90;
 
         //X rojo
-        text("+X",margin,0,0);
-        text("-X",-margin,0,0);
+        text("+X",margin,-2,0);
+        text("-X",-margin,-2,0);
         stroke(210, 0, 0);
         line(-size,0,0,size,0,0);
 
         //Y verde
-        text("-Y",0,margin,0);
-        text("+Y",0,-margin,0);
+        text("-Y",2,margin,0);
+        text("+Y",2,-margin,0);
         stroke(0, 210, 0);
         line(0,-size,0,0,size,0);
 
         //Z azul
-        text("+Z",0,0,margin);
-        text("-Z",0,0,-margin);
+        text("+Z",5,0,margin);
+        text("-Z",5,0,-margin);
         stroke(0, 0, 210);
         line(0, 0, -size,0,0, size);
     }
