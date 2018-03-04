@@ -16,8 +16,8 @@ public class Main {
         System.out.println("---------------------------------------");
 
         System.out.println("Cinematica directa");
-        double l[] = new double[]{66,70,62};
-        double q[] = new double[]{45,0,0};
+        double l[] = new double[]{50,55,75};
+        double q[] = new double[]{0,0,0};
         Cartesian coord_cartesian;
         ForwardK fk = new ForwardK(l);
 
@@ -42,11 +42,11 @@ public class Main {
 
 
         /**pruebas sobre la MLP*/
+        /*
         int[] layers = new int[]{ 2, 5, 1 };
 
         MultiLayerPerceptron net = new MultiLayerPerceptron(layers, 0.6, new SigmoidalTransfer());
 
-        /* Learning */
         for(int i = 0; i < 10000; i++)
         {
             double[] inputs = new double[]{Math.round(Math.random()), Math.round(Math.random())};
@@ -68,11 +68,11 @@ public class Main {
 
         System.out.println("\nLearning completed!");
 
-        /* Test */
         double[] inputs = new double[]{1.0, 0.0};
         double[] output = net.execute(inputs);
 
         System.out.println(inputs[0]+" and "+inputs[1]+" = "+Math.round(output[0])+" ("+output[0]+")");
+        */
 
 
     }
