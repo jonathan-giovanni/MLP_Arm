@@ -11,15 +11,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //TODO se puede modificar todo esto
         System.out.println("--------Pruebas de cinematica----------");
         System.out.println("---------------------------------------");
 
         System.out.println("Cinematica directa");
+
         double l[] = new double[]{50,55,75};
         double q[] = new double[]{0,0,0};
         Cartesian coord_cartesian;
         ForwardK fk = new ForwardK(l);
+
 
         System.out.println("Longitudes de cada piezas : l1 -> "+l[0]+" l2 -> "+l[1]+" l3-> "+l[2]);
         System.out.println("Angulos de evaluacion     : q1 -> "+q[0]+" q2 -> "+q[1]+" q3-> "+q[2]);
