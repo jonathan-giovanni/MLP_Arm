@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class MultiLayerPerceptron implements Cloneable
+public class MultiLayerPerceptron
 {
     protected double			fLearningRate = 0.6;
     protected Layer[]			fLayers;

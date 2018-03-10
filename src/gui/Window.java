@@ -135,7 +135,7 @@ public class Window extends PApplet {
         popMatrix();
 
         //valores : base - brazo - antebrazo
-        //arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
+        arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
 
 
     }

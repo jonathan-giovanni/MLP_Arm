@@ -1,5 +1,6 @@
 import coordinates.Angle;
 import coordinates.Cartesian;
+import gui.frmMain;
 import kinematics.ForwardK;
 import kinematics.InverseK;
 import mlp.MultiLayerPerceptron;
@@ -39,11 +40,14 @@ public class Main {
         System.out.println("Angulos de ik : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
 
         //TODO hasta aqui
-        //PApplet.main(new String[]{"gui.Window"});
 
+        /**interfaces graficas**/
+        
+        //PApplet.main(new String[]{"gui.Window"});
+        frmMain.main(null);
 
         /**pruebas sobre la MLP*/
-        /*
+
         int[] layers = new int[]{ 2, 5, 1 };
 
         MultiLayerPerceptron net = new MultiLayerPerceptron(layers, 0.6, new SigmoidalTransfer());
@@ -73,7 +77,7 @@ public class Main {
         double[] output = net.execute(inputs);
 
         System.out.println(inputs[0]+" and "+inputs[1]+" = "+Math.round(output[0])+" ("+output[0]+")");
-        */
+
 
 
     }

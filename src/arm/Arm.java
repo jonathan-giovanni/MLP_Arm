@@ -19,6 +19,7 @@ public class Arm {
         L = new double[]{50,55,75};
         //TODO hasta aqui
         Q = new double[]{0,0,0};
+
         base        = context.loadShape("r5.obj");
         shoulder    = context.loadShape("r1.obj");
         upArm       = context.loadShape("r2.obj");
