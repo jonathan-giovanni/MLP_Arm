@@ -1,5 +1,6 @@
 import coordinates.Angle;
 import coordinates.Cartesian;
+import gui.Window;
 import gui.frmMain;
 import kinematics.ForwardK;
 import kinematics.InverseK;
@@ -42,9 +43,12 @@ public class Main {
         //TODO hasta aqui
 
         /**interfaces graficas**/
-        
-        //PApplet.main(new String[]{"gui.Window"});
-        frmMain.main(null);
+
+        frmMain pWindow = new frmMain();
+        PApplet.main(pWindow.getClass());
+        //frmMain.maina(null);
+
+
 
         /**pruebas sobre la MLP*/
 

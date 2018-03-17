@@ -18,13 +18,14 @@ public class Window extends PApplet {
     PVector origin;
     float rX,rY,zoom;
     Cartesian coord_cartesian;
+    public boolean test = false;
 
     Arm arm;
     InverseK ik;
     @Override
     public void settings() {
-        //size(400, 400, P3D);
-        fullScreen(P3D);
+        size(400, 400, P3D);
+        //fullScreen(P3D);
 
     }
 
@@ -135,7 +136,7 @@ public class Window extends PApplet {
         popMatrix();
 
         //valores : base - brazo - antebrazo
-        arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
+        if(!test) arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
 
 
     }
