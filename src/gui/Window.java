@@ -18,7 +18,7 @@ public class Window extends PApplet {
     PVector origin;
     float rX,rY,zoom;
     Cartesian coord_cartesian;
-    public boolean test = false;
+    public static boolean test = false;
 
     Arm arm;
     InverseK ik;
