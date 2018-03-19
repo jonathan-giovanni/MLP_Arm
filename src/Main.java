@@ -52,6 +52,8 @@ public class Main {
 
         /**pruebas sobre la MLP*/
 
+        /*
+
         int[] layers = new int[]{ 2, 5, 1 };
 
         MultiLayerPerceptron net = new MultiLayerPerceptron(layers, 0.6, new SigmoidalTransfer());
@@ -81,7 +83,7 @@ public class Main {
         double[] output = net.execute(inputs);
 
         System.out.println(inputs[0]+" and "+inputs[1]+" = "+Math.round(output[0])+" ("+output[0]+")");
-
+        */
 
 
     }

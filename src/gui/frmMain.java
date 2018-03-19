@@ -1,7 +1,12 @@
 package gui;
 
 
+import coordinates.Angle;
+import kinematics.InverseK;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class frmMain extends Window {
 
@@ -30,6 +35,20 @@ public class frmMain extends Window {
         btnMinusX.addActionListener(a -> {
             test = !test;
         });
+
+        txtCoordinateX.addActionListener(a -> {
+            coord_cartesian.setX(  Double.parseDouble( txtCoordinateX.getText() ) );
+            println( " Coordenada  X "  + txtCoordinateX.getText() );
+        });
+        txtCoordinateY.addActionListener(a -> {
+            coord_cartesian.setX(  Double.parseDouble( txtCoordinateY.getText() ) );
+            println( " Coordenada Y "  + txtCoordinateY.getText() );
+        });
+        txtCoordinateZ.addActionListener(a -> {
+            coord_cartesian.setX(  Double.parseDouble( txtCoordinateZ.getText() ) );
+            println( " Coordenada Z "  + txtCoordinateZ.getText() );
+        });
+
     }
 
 
@@ -43,4 +62,17 @@ public class frmMain extends Window {
         frame.setVisible(true);
     }
 
+    @Override
+    public void draw() {
+        super.draw();
+        //if(!test) arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
+
+
+        // calculando ik
+        InverseK ik2 = new InverseK(arm.getL());
+        double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
+        //q2[0]+=180;
+        arm.setAngles(q2,Angle.DEGREES);
+
+    }
 }

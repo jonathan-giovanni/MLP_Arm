@@ -17,14 +17,16 @@ public class Window extends PApplet {
     float size;
     PVector origin;
     float rX,rY,zoom;
-    Cartesian coord_cartesian;
+    static Cartesian coord_cartesian;
     public static boolean test = false;
+
+    static double angles[];
 
     Arm arm;
     InverseK ik;
     @Override
     public void settings() {
-        size(400, 400, P3D);
+        size(800, 800, P3D);
         //fullScreen(P3D);
 
     }
@@ -53,11 +55,14 @@ public class Window extends PApplet {
         //TODO se puede hacer pruebas aqui
         //arm.setAngles(new double[]{45,20,20},Angle.DEGREES);
         ForwardK fk = new ForwardK(arm.getL());
-        //coord_cartesian = fk.getCartesian(new double[]{0,0,0},Angle.DEGREES);
+        coord_cartesian = fk.getCartesian(new double[]{0,0,0},Angle.DEGREES);
 
-        arm.setAngles(new double[]{0,0,0},Angle.DEGREES);
+        angles = new double[]{0,0,0};
+        arm.setAngles(angles,Angle.DEGREES);
 
-        coord_cartesian = new Cartesian();
+        //coord_cartesian = new Cartesian();
+
+
 
         //coord_cartesian = new Cartesian(90,10,70);
 
@@ -69,7 +74,7 @@ public class Window extends PApplet {
         //arm.setAngles(q2,Angle.DEGREES);
 
         //System.out.println("--Angulos de ik2 : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
-        // System.out.println("Coordenadas X,Y y Z : "+coord_cartesian.getX() + " , "+ coord_cartesian.getY() + " , "+coord_cartesian.getZ());
+        System.out.println("Coordenadas X,Y y Z : "+coord_cartesian.getX() + " , "+ coord_cartesian.getY() + " , "+coord_cartesian.getZ());
         //arm.setAngles(ik.getAngles(new Cartesian(0,0,130),Angle.RADIANS),Angle.RADIANS);
         //TODO hasta aqui
 
@@ -136,7 +141,7 @@ public class Window extends PApplet {
         popMatrix();
 
         //valores : base - brazo - antebrazo
-        if(!test) arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
+        //if(!test) arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
 
 
     }
