@@ -2,6 +2,7 @@ package gui;
 
 
 import coordinates.Angle;
+import coordinates.Cartesian;
 import kinematics.InverseK;
 
 import javax.swing.*;
@@ -29,9 +30,15 @@ public class frmMain extends Window {
     private JTextField txtCoordinateX;
     private JTextField txtCoordinateY;
     private JTextField txtCoordinateZ;
-
-
+    private int incPlusX, incPlusY, incPlusZ;
     public frmMain() {
+        incPlusX = 20;
+        incPlusY = 40;
+        incPlusZ = 45;
+        txtCoordinateX.setText("20");
+        txtCoordinateY.setText("40");
+        txtCoordinateZ.setText("45");
+
         btnMinusX.addActionListener(a -> {
             test = !test;
         });
@@ -41,12 +48,39 @@ public class frmMain extends Window {
             println( " Coordenada  X "  + txtCoordinateX.getText() );
         });
         txtCoordinateY.addActionListener(a -> {
-            coord_cartesian.setX(  Double.parseDouble( txtCoordinateY.getText() ) );
+            coord_cartesian.setY(  Double.parseDouble( txtCoordinateY.getText() ) );
             println( " Coordenada Y "  + txtCoordinateY.getText() );
         });
         txtCoordinateZ.addActionListener(a -> {
-            coord_cartesian.setX(  Double.parseDouble( txtCoordinateZ.getText() ) );
+            coord_cartesian.setZ(  Double.parseDouble( txtCoordinateZ.getText() ) );
             println( " Coordenada Z "  + txtCoordinateZ.getText() );
+        });
+
+
+        btnPlusX.addActionListener(a ->{
+
+            incPlusX++;
+
+            txtCoordinateX.setText(String.valueOf(incPlusX));
+            coord_cartesian.setX(  Double.parseDouble( txtCoordinateX.getText() ) );
+
+        });
+        btnPlusY.addActionListener(a ->{
+
+            incPlusY++;
+
+            txtCoordinateY.setText(String.valueOf(incPlusY));
+            coord_cartesian.setY(  Double.parseDouble( txtCoordinateY.getText() ) );
+
+        });
+
+        btnPlusZ.addActionListener(a ->{
+
+            incPlusZ++;
+
+            txtCoordinateZ.setText(String.valueOf(incPlusZ));
+            coord_cartesian.setZ(  Double.parseDouble( txtCoordinateZ.getText() ) );
+
         });
 
     }
@@ -71,7 +105,6 @@ public class frmMain extends Window {
         // calculando ik
         InverseK ik2 = new InverseK(arm.getL());
         double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
-        //q2[0]+=180;
         arm.setAngles(q2,Angle.DEGREES);
 
     }

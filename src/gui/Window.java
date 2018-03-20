@@ -55,9 +55,9 @@ public class Window extends PApplet {
         //TODO se puede hacer pruebas aqui
         //arm.setAngles(new double[]{45,20,20},Angle.DEGREES);
         ForwardK fk = new ForwardK(arm.getL());
-        coord_cartesian = fk.getCartesian(new double[]{0,0,0},Angle.DEGREES);
+        coord_cartesian = fk.getCartesian(new double[]{20,40,45},Angle.DEGREES);
 
-        angles = new double[]{0,0,0};
+        angles = new double[]{20,40,45};
         arm.setAngles(angles,Angle.DEGREES);
 
         //coord_cartesian = new Cartesian();

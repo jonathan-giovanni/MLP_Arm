@@ -19,7 +19,7 @@ public class Main {
         System.out.println("Cinematica directa");
 
         double l[] = new double[]{50,55,75};
-        double q[] = new double[]{0,0,0};
+        double q[] = new double[]{20,40,45};
         Cartesian coord_cartesian;
         ForwardK fk = new ForwardK(l);
 
