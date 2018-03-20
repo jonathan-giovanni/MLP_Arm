@@ -6,6 +6,7 @@ import coordinates.Cartesian;
 import kinematics.InverseK;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,57 +32,94 @@ public class frmMain extends Window {
     private JTextField txtCoordinateY;
     private JTextField txtCoordinateZ;
     private int incPlusX, incPlusY, incPlusZ;
+
     public frmMain() {
+
+        //modificar para que se inicialize con los valores por defecto
         incPlusX = 20;
         incPlusY = 40;
         incPlusZ = 45;
+
+        //valores temporales debería inicializarse por defecto con estos valores
         txtCoordinateX.setText("20");
         txtCoordinateY.setText("40");
         txtCoordinateZ.setText("45");
+
 
         btnMinusX.addActionListener(a -> {
             test = !test;
         });
 
         txtCoordinateX.addActionListener(a -> {
-            coord_cartesian.setX(  Double.parseDouble( txtCoordinateX.getText() ) );
-            println( " Coordenada  X "  + txtCoordinateX.getText() );
+            coord_cartesian.setX(Double.parseDouble(txtCoordinateX.getText()));
+            println(" Coordenada  X " + txtCoordinateX.getText());
         });
         txtCoordinateY.addActionListener(a -> {
-            coord_cartesian.setY(  Double.parseDouble( txtCoordinateY.getText() ) );
-            println( " Coordenada Y "  + txtCoordinateY.getText() );
+            coord_cartesian.setY(Double.parseDouble(txtCoordinateY.getText()));
+            println(" Coordenada Y " + txtCoordinateY.getText());
         });
         txtCoordinateZ.addActionListener(a -> {
-            coord_cartesian.setZ(  Double.parseDouble( txtCoordinateZ.getText() ) );
-            println( " Coordenada Z "  + txtCoordinateZ.getText() );
+            coord_cartesian.setZ(Double.parseDouble(txtCoordinateZ.getText()));
+            println(" Coordenada Z " + txtCoordinateZ.getText());
         });
 
 
-        btnPlusX.addActionListener(a ->{
+        btnMinusX.addActionListener(a -> {
 
-            incPlusX++;
+            --incPlusX;
 
             txtCoordinateX.setText(String.valueOf(incPlusX));
-            coord_cartesian.setX(  Double.parseDouble( txtCoordinateX.getText() ) );
+            coord_cartesian.setX(Double.parseDouble(txtCoordinateX.getText()));
 
         });
-        btnPlusY.addActionListener(a ->{
 
-            incPlusY++;
+
+        btnPlusX.addActionListener(a -> {
+
+            ++incPlusX;
+
+            txtCoordinateX.setText(String.valueOf(incPlusX));
+            coord_cartesian.setX(Double.parseDouble(txtCoordinateX.getText()));
+
+        });
+        btnPlusY.addActionListener(a -> {
+
+            ++incPlusY;
 
             txtCoordinateY.setText(String.valueOf(incPlusY));
-            coord_cartesian.setY(  Double.parseDouble( txtCoordinateY.getText() ) );
+            coord_cartesian.setY(Double.parseDouble(txtCoordinateY.getText()));
 
         });
 
-        btnPlusZ.addActionListener(a ->{
+        btnMinusY.addActionListener(a -> {
 
-            incPlusZ++;
+            --incPlusY;
+
+            txtCoordinateY.setText(String.valueOf(incPlusY));
+            coord_cartesian.setY(Double.parseDouble(txtCoordinateY.getText()));
+
+        });
+
+        btnPlusZ.addActionListener(a -> {
+
+            ++incPlusZ;
 
             txtCoordinateZ.setText(String.valueOf(incPlusZ));
-            coord_cartesian.setZ(  Double.parseDouble( txtCoordinateZ.getText() ) );
+            coord_cartesian.setZ(Double.parseDouble(txtCoordinateZ.getText()));
 
         });
+
+        btnMinusZ.addActionListener(a -> {
+
+            --incPlusZ;
+
+            txtCoordinateZ.setText(String.valueOf(incPlusZ));
+            coord_cartesian.setZ(Double.parseDouble(txtCoordinateZ.getText()));
+
+        });
+        //SLIDER
+
+
 
     }
 
