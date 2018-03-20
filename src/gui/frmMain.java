@@ -6,9 +6,11 @@ import coordinates.Cartesian;
 import kinematics.InverseK;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Hashtable;
 
 public class frmMain extends Window {
 
@@ -117,9 +119,65 @@ public class frmMain extends Window {
             coord_cartesian.setZ(Double.parseDouble(txtCoordinateZ.getText()));
 
         });
-        //SLIDER
+        //SLIDER for X
+        sliderX.setMaximum(360);
+        sliderX.setMajorTickSpacing(90);
+        sliderX.setPaintLabels(true);
+        Hashtable position = new Hashtable();
+
+        position.put(0, new JLabel("0"));
+
+        position.put(360, new JLabel("360"));
+        sliderX.setLabelTable(position);
 
 
+        sliderX.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+
+                txtAngle1.setText(String.valueOf(((JSlider)e.getSource()).getValue()));
+            }
+        });
+
+        //SLIDER for Y
+        sliderY.setMaximum(40);
+        sliderY.setMinimum(-90);
+        sliderY.setMajorTickSpacing(45);
+        sliderY.setPaintLabels(true);
+        Hashtable positionY = new Hashtable();
+
+        positionY.put(-90, new JLabel("-90"));
+
+        positionY.put(40, new JLabel("40"));
+
+        sliderY.setLabelTable(positionY);
+
+
+        sliderY.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e2) {
+
+                txtAngle2.setText(String.valueOf(((JSlider)e2.getSource()).getValue()));
+            }
+        });
+
+        //SLIDER for Z
+        sliderZ.setMaximum(90);
+        sliderZ.setMinimum(-90);
+        sliderZ.setMajorTickSpacing(45);
+        sliderZ.setPaintLabels(true);
+        Hashtable positionZ = new Hashtable();
+
+        positionZ.put(-90, new JLabel("-90"));
+
+        positionZ.put(90, new JLabel("90"));
+        sliderZ.setLabelTable(positionZ);
+
+
+        sliderZ.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e3) {
+
+                txtAngle3.setText(String.valueOf(((JSlider)e3.getSource()).getValue()));
+            }
+        });
 
     }
 
