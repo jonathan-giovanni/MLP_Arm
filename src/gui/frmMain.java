@@ -14,6 +14,8 @@ import java.util.Hashtable;
 
 public class frmMain extends Window {
 
+    float millisOld, gTime, gSpeed = 8;
+    InverseK ik2;
     public JFrame frame;
     public frmMain ventana;
 
@@ -38,19 +40,12 @@ public class frmMain extends Window {
     public frmMain() {
 
         //modificar para que se inicialize con los valores por defecto
-        incPlusX = 20;
-        incPlusY = 40;
-        incPlusZ = 45;
 
         //valores temporales debería inicializarse por defecto con estos valores
-        txtCoordinateX.setText("20");
-        txtCoordinateY.setText("40");
-        txtCoordinateZ.setText("45");
+        txtCoordinateX.setText(""+incPlusX);
+        txtCoordinateY.setText(""+incPlusY);
+        txtCoordinateZ.setText(""+incPlusZ);
 
-
-        btnMinusX.addActionListener(a -> {
-            test = !test;
-        });
 
         txtCoordinateX.addActionListener(a -> {
             coord_cartesian.setX(Double.parseDouble(txtCoordinateX.getText()));
@@ -66,76 +61,52 @@ public class frmMain extends Window {
         });
 
 
-        btnMinusX.addActionListener(a -> {
-
-            --incPlusX;
-
-            txtCoordinateX.setText(String.valueOf(incPlusX));
-            coord_cartesian.setX(Double.parseDouble(txtCoordinateX.getText()));
-
-        });
-
-
         btnPlusX.addActionListener(a -> {
-
-            ++incPlusX;
-
-            txtCoordinateX.setText(String.valueOf(incPlusX));
-            coord_cartesian.setX(Double.parseDouble(txtCoordinateX.getText()));
-
+            coord_cartesian.incX();
+            txtCoordinateX.setText(String.valueOf(coord_cartesian.getX()) );
+            println(" Coordenada  X " + coord_cartesian.getX());
         });
+        btnMinusX.addActionListener(a -> {
+            coord_cartesian.decX();
+            txtCoordinateX.setText(""+coord_cartesian.getX() );
+        });
+
         btnPlusY.addActionListener(a -> {
-
-            ++incPlusY;
-
-            txtCoordinateY.setText(String.valueOf(incPlusY));
-            coord_cartesian.setY(Double.parseDouble(txtCoordinateY.getText()));
-
+            coord_cartesian.incY();
+            txtCoordinateY.setText(""+coord_cartesian.getY() );
         });
 
         btnMinusY.addActionListener(a -> {
-
-            --incPlusY;
-
-            txtCoordinateY.setText(String.valueOf(incPlusY));
-            coord_cartesian.setY(Double.parseDouble(txtCoordinateY.getText()));
-
+            coord_cartesian.decY();
+            txtCoordinateY.setText(""+coord_cartesian.getY() );
         });
 
         btnPlusZ.addActionListener(a -> {
-
-            ++incPlusZ;
-
-            txtCoordinateZ.setText(String.valueOf(incPlusZ));
-            coord_cartesian.setZ(Double.parseDouble(txtCoordinateZ.getText()));
-
+            coord_cartesian.incZ();
+            txtCoordinateZ.setText(""+coord_cartesian.getZ() );
         });
 
         btnMinusZ.addActionListener(a -> {
-
-            --incPlusZ;
-
-            txtCoordinateZ.setText(String.valueOf(incPlusZ));
-            coord_cartesian.setZ(Double.parseDouble(txtCoordinateZ.getText()));
-
+            coord_cartesian.decZ();
+            txtCoordinateZ.setText(""+coord_cartesian.getZ() );
         });
+
+
+
         //SLIDER for X
         sliderX.setMaximum(360);
         sliderX.setMajorTickSpacing(90);
         sliderX.setPaintLabels(true);
-        Hashtable position = new Hashtable();
+        Hashtable position1 = new Hashtable();
 
-        position.put(0, new JLabel("0"));
+        position1.put(0, new JLabel("0"));
 
-        position.put(360, new JLabel("360"));
-        sliderX.setLabelTable(position);
+        position1.put(360, new JLabel("360"));
+        sliderX.setLabelTable(position1);
 
 
-        sliderX.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-
-                txtAngle1.setText(String.valueOf(((JSlider)e.getSource()).getValue()));
-            }
+        sliderX.addChangeListener(e -> {
+            txtAngle1.setText(String.valueOf(((JSlider)e.getSource()).getValue()));
         });
 
         //SLIDER for Y
@@ -143,13 +114,13 @@ public class frmMain extends Window {
         sliderY.setMinimum(-90);
         sliderY.setMajorTickSpacing(45);
         sliderY.setPaintLabels(true);
-        Hashtable positionY = new Hashtable();
+        Hashtable position2 = new Hashtable();
 
-        positionY.put(-90, new JLabel("-90"));
+        position2.put(-90, new JLabel("-90"));
 
-        positionY.put(40, new JLabel("40"));
+        position2.put(40, new JLabel("40"));
 
-        sliderY.setLabelTable(positionY);
+        sliderY.setLabelTable(position2);
 
 
         sliderY.addChangeListener(new ChangeListener() {
@@ -164,12 +135,10 @@ public class frmMain extends Window {
         sliderZ.setMinimum(-90);
         sliderZ.setMajorTickSpacing(45);
         sliderZ.setPaintLabels(true);
-        Hashtable positionZ = new Hashtable();
-
-        positionZ.put(-90, new JLabel("-90"));
-
-        positionZ.put(90, new JLabel("90"));
-        sliderZ.setLabelTable(positionZ);
+        Hashtable position3 = new Hashtable();
+        position3.put(-90, new JLabel("-90"));
+        position3.put(90, new JLabel("90"));
+        sliderZ.setLabelTable(position3);
 
 
         sliderZ.addChangeListener(new ChangeListener() {
@@ -190,18 +159,37 @@ public class frmMain extends Window {
         frame.setContentPane(new frmMain().panel1);
         frame.pack();
         frame.setVisible(true);
+
+
     }
 
     @Override
     public void draw() {
+        ik2 = new InverseK(arm.getL());
+        writePos();
         super.draw();
         //if(!test) arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
 
 
         // calculando ik
-        InverseK ik2 = new InverseK(arm.getL());
-        double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
-        arm.setAngles(q2,Angle.DEGREES);
 
+
+        //q2[0]+=180;
+    }
+
+
+    void setTime(){
+        gTime += ((float)millis()/1000 - millisOld)*(gSpeed/4);
+        if(gTime >= 4)  gTime = 0;
+        millisOld = (float)millis()/1000;
+    }
+
+    void writePos(){
+        double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
+        arm.setAngles(q2,Angle.RADIANS);
+        setTime();
+        coord_cartesian.setX(sin(gTime*PI/2)*20);
+        coord_cartesian.setY(90);
+        coord_cartesian.setZ(sin(gTime*PI)*10);
     }
 }

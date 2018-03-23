@@ -1,36 +1,40 @@
 package coordinates;
 
 public class Cartesian {
-    private double X;
-    private double Y;
-    private double Z;
-    private double MIN;
+    private static double X;
+    private static double Y;
+    private static double Z;
+    private static double STEP;
+
 
     public Cartesian(){
         X = Y = Z = 0;
-        MIN = 0.00001;
+        STEP= 1;
     }
-    public Cartesian(double min){
+    public Cartesian(double min,int step){
         X = Y = Z = 0;
-        MIN = min;
+        STEP  = step;
     }
 
     public Cartesian(double x, double y, double z) {
-        //X = (x>MIN)?x:0;
-        //Y = (y>MIN)?y:0;
-        //Z = (z>MIN)?z:0;
         X=x;Y=y;Z=z;
     }
-    public void setX(double x){
-        X = (x>MIN)?x:0;
-    }
-    public void setY(double y){
-        Y = (y>MIN)?y:0;
-    }
+
+    public void setSTEP(double STEP) {this.STEP = STEP;}
+    public void setX(double x){ X =x; }
+    public void setY(double y){ Y = y; }
     public void setZ(double z){
-        Z = (z>MIN)?z:0;
+        Z = z;
     }
     public double getX(){return X;}
     public double getY(){return Y;}
     public double getZ(){return Z;}
+    public double getSTEP() {return STEP;}
+    public void decX(){X -=STEP;}
+    public void decY(){Y -=STEP;}
+    public void decZ(){Z -=STEP;}
+    public void incX(){X +=STEP;}
+    public void incY(){Y +=STEP;}
+    public void incZ(){Z +=STEP;}
+
 }

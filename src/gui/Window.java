@@ -52,28 +52,26 @@ public class Window extends PApplet {
  * */
 
 
-        //TODO se puede hacer pruebas aqui
-        //arm.setAngles(new double[]{45,20,20},Angle.DEGREES);
+        //TODO pruebas FK
+        /**
+
         ForwardK fk = new ForwardK(arm.getL());
         coord_cartesian = fk.getCartesian(new double[]{20,40,45},Angle.DEGREES);
 
         angles = new double[]{20,40,45};
         arm.setAngles(angles,Angle.DEGREES);
 
-        //coord_cartesian = new Cartesian();
+        println("Fk x: "+coord_cartesian.getX() + " y: "+coord_cartesian.getY()+ " z: "+ coord_cartesian.getZ() );
+         **/
 
 
+        //TODO pruebas IK
+        coord_cartesian = new Cartesian(20,80,0);
+        InverseK ik2 = new InverseK(arm.getL());
+        double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
+        arm.setAngles(q2,Angle.DEGREES);
 
-        //coord_cartesian = new Cartesian(90,10,70);
-
-
-        // calculando ik
-        //InverseK ik2 = new InverseK(arm.getL());
-        //double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
-        //q2[0]+=180;
-        //arm.setAngles(q2,Angle.DEGREES);
-
-        //System.out.println("--Angulos de ik2 : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
+        System.out.println("--Angulos de ik2 : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
         System.out.println("Coordenadas X,Y y Z : "+coord_cartesian.getX() + " , "+ coord_cartesian.getY() + " , "+coord_cartesian.getZ());
         //arm.setAngles(ik.getAngles(new Cartesian(0,0,130),Angle.RADIANS),Angle.RADIANS);
         //TODO hasta aqui
@@ -87,58 +85,35 @@ public class Window extends PApplet {
         lights();
         directionalLight(40, 90, 100, 1, 40, 40);
 
-        translate(origin.x,origin.y,origin.z);
-
-
+        translate(origin.x,origin.y);
         scale(zoom);
+
+
         userInput();
         drawAxes();
 
+
         hint(ENABLE_DEPTH_TEST);
+
+
 
         pushMatrix();
         noStroke();
-        //TODO se puede hacer prueba aqui
+        //TODO hasta aqui
         fill(250, 100, 1);
-        translate((float)coord_cartesian.getX(),(float)-coord_cartesian.getY(), (float) coord_cartesian.getZ());
+        translate((float)coord_cartesian.getY() ,(float)coord_cartesian.getZ() , (float)coord_cartesian.getX() );
         //TODO hasta aqui
         sphere(2);
         popMatrix();
-
-        //70 de altura
-
-
-        /*pushMatrix();
-        noStroke();
-        translate(0, -35, 0);
-        fill(0, 220, 0,40);
-        box(10,70,10);
-        popMatrix();
-
-        //antebrazo 60
-        pushMatrix();
-        noStroke();
-        translate(0, -66, 30);
-        rotateX(PI/2);
-        fill(0, 0, 240,40);
-        box(10,60,10);
-        popMatrix();
-
-        //brazo 80
-        pushMatrix();
-        noStroke();
-        translate(0, -66, 95);
-        rotateX(PI/2);
-        fill(100, 0, 220,40);
-        box(10,80,10);
-        popMatrix();
-        */
-
 
 
         pushMatrix();
         arm.drawArm();
         popMatrix();
+
+
+
+
 
         //valores : base - brazo - antebrazo
         //if(!test) arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
