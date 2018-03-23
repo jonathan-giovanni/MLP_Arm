@@ -18,8 +18,8 @@ public class Main {
 
         System.out.println("Cinematica directa");
 
-        double l[] = new double[]{50,50,85};
-        double q[] = new double[]{0,0,0};
+        double l[] = new double[]{0,50,85};
+        double q[] = new double[]{0,45,0};
         Cartesian coord_cartesian;
         ForwardK fk = new ForwardK(l);
 
@@ -35,7 +35,7 @@ public class Main {
         System.out.println("Coordenadas de entrada X,Y y Z : "+coord_cartesian.getX() + " , "+ coord_cartesian.getY() + " , "+coord_cartesian.getZ());
 
         InverseK ik = new InverseK(l);
-        double q2[] = ik.getAngles(new Cartesian(130,0,0),Angle.DEGREES);
+        double q2[] = ik.getAngles(new Cartesian(0,95,95),Angle.DEGREES);
 
         System.out.println("Angulos de fk : q1 -> "+q[0]+" q2 -> "+q[1]+" q3-> "+q[2]);
         System.out.println("Angulos de ik : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
@@ -44,7 +44,7 @@ public class Main {
 
         /**interfaces graficas**/
 
-        frmMain pWindow = new frmMain();
+        //frmMain pWindow = new frmMain();
         //PApplet.main(pWindow.getClass());
 
 

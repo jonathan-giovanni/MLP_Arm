@@ -64,11 +64,11 @@ public class InverseK {
        Q[2] = beta;
 
 
-       /*
+
         if (angle == Angle.DEGREES)
             for (int i = 0; i < Q.length; i++)
                 Q[i] = Q[i] * 180 / PI;
-       */
+
         return Q;
     }
 }
