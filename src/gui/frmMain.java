@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Hashtable;
 
+import static java.lang.Math.PI;
+
 public class frmMain extends Window {
 
     float millisOld, gTime, gSpeed = 8;
@@ -95,6 +97,9 @@ public class frmMain extends Window {
             println(" Coordenada  Z " + coord_cartesian.getX());
         });
 
+        //angles
+
+        angles = new double[]{0,0,0};
 
 
         //SLIDER for X
@@ -109,9 +114,17 @@ public class frmMain extends Window {
         sliderX.setLabelTable(position1);
 
 
+
         sliderX.addChangeListener(e -> {
-            txtAngle1.setText(String.valueOf(((JSlider)e.getSource()).getValue()));
+            int angle1 = ((JSlider)e.getSource()).getValue();
+            txtAngle1.setText(String.valueOf(angle1));
+            angles[0] = angle1;
+            angles[0] = (angles[0]/180)* PI ;
+            if(arm!=null) arm.setAngles(angles,Angle.RADIANS);
+            System.out.println("Angulos  1 -> "+angles[0] + " 2 -> "+angles[1]+ " 3 -> "+angles[2]);
         });
+
+        sliderX.setValue((int)angles[0]);
 
         //SLIDER for Y
         sliderY.setMaximum(40);
@@ -127,12 +140,16 @@ public class frmMain extends Window {
         sliderY.setLabelTable(position2);
 
 
-        sliderY.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e2) {
-
-                txtAngle2.setText(String.valueOf(((JSlider)e2.getSource()).getValue()));
-            }
+        sliderY.addChangeListener(e ->{
+            int angle2 = ((JSlider)e.getSource()).getValue();
+            txtAngle2.setText(String.valueOf(angle2));
+            angles[1] = angle2;
+            angles[1] = (angles[1]/180)* PI ;
+            if(arm!=null) arm.setAngles(angles,Angle.RADIANS);
+            System.out.println("Angulos  1 -> "+angles[0] + " 2 -> "+angles[1]+ " 3 -> "+angles[2]);
         });
+
+        sliderY.setValue((int)angles[1]);
 
         //SLIDER for Z
         sliderZ.setMaximum(90);
@@ -145,12 +162,17 @@ public class frmMain extends Window {
         sliderZ.setLabelTable(position3);
 
 
-        sliderZ.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e3) {
-
-                txtAngle3.setText(String.valueOf(((JSlider)e3.getSource()).getValue()));
-            }
+        sliderZ.addChangeListener(e -> {
+            int angle3 = ((JSlider)e.getSource()).getValue();
+            txtAngle3.setText(String.valueOf(angle3));
+            angles[2] = angle3;
+            angles[2] = (angles[2]/180)* PI ;
+            if(arm!=null) arm.setAngles(angles,Angle.RADIANS);
+            System.out.println("Angulos  1 -> "+angles[0] + " 2 -> "+angles[1]+ " 3 -> "+angles[2]);
         });
+
+        sliderZ.setValue((int)angles[2]);
+
 
     }
 
@@ -169,8 +191,8 @@ public class frmMain extends Window {
 
     @Override
     public void draw() {
-        ik2 = new InverseK(arm.getL());
-        applyIK();
+        //ik2 = new InverseK(arm.getL());
+        //applyIK();
         //writePos();
         super.draw();
         //if(!test) arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
@@ -197,4 +219,5 @@ public class frmMain extends Window {
         arm.setAngles(q2,Angle.DEGREES);
         System.out.println("Angulos de ik : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
     }
+
 }

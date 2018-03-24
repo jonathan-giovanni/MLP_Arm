@@ -41,7 +41,7 @@ public class Arm {
 
         //context.translate(0,0);
 
-        context.scale(1.20f);
+        context.scale(-1.20f);
         /**     base no rotatoria   **/
         context.fill(255, 200, 10,100);
         context.translate(0,26,0); // 0 , 26, 0 para que quede alineado en el centro de los ejes
@@ -53,7 +53,7 @@ public class Arm {
         /**     antebrazo           **/
         context.fill(60, 200, 130);
         context.translate(0, 25, 0);
-        //context.rotateY(context.PI);
+        context.rotateY(context.PI);
         context.rotateX((float) (-Q[1]));//alpha
         context.shape(upArm);
         /**      brazo               **/

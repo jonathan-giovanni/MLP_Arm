@@ -22,7 +22,7 @@ public class Window extends PApplet {
 
     static double angles[];
 
-    Arm arm;
+    static Arm arm;
     InverseK ik;
     @Override
     public void settings() {
@@ -42,6 +42,7 @@ public class Window extends PApplet {
         rY      = -0.65f;
         arm     = new Arm(this);
         ik      = new InverseK(arm.getL());
+        angles  = new double[]{0,0,0};
 /***
  *              RANGO DE ANGULOS VALIDOS SOBRE LOS EJES
  *              ________________________________________
