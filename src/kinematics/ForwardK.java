@@ -3,13 +3,14 @@ package kinematics;
 import coordinates.Angle;
 import coordinates.Cartesian;
 
+import static java.lang.Math.*;
+
 /*
     Basado en la investigación:
     http://www.utm.mx/~hugo/robot/Robot2.pdf
 */
 
 public class ForwardK {
-    private Cartesian coord_cartesian;
     private double Q[];
     private double L[];
 
@@ -18,26 +19,19 @@ public class ForwardK {
     }
     public Cartesian getCartesian(double []q, Angle angle){
         Q = q;
-        coord_cartesian = new Cartesian();
-        if(angle==Angle.DEGREES)
-            for(int i=0;i<Q.length;i++)
-                Q[i] = (Q[i]/180)*Math.PI;
-
-        double h  = L[1]*Math.cos(Q[1]) + L[2]*Math.cos(Q[1]+Q[2]);
-        //double c  = Math.sqrt( Math.pow(L[1],2) + Math.pow(L[2],2) + 2*L[1]*L[2]*Math.cos(Q[2]));
+        if(angle==Angle.DEGREES) for(int i=0;i<Q.length;i++) Q[i] = (Q[i]/180)*Math.PI;
 
         //ordenando
         //x->y
         //y->z
         //z->x
+        double x = (L[1]*cos(Q[1])+L[2]*cos(Q[1]+Q[2]))*sin(Q[0]);
+        double y = (L[1]*cos(Q[1])+L[2]*cos(Q[1]+Q[2]))*cos(Q[0]);
+        double z =  L[1]*sin(Q[1])+L[2]*sin(Q[1]+Q[2]) +    L[0];
 
-        coord_cartesian.setX(h*Math.sin(Q[0]));
-        coord_cartesian.setY(L[0]+L[1]*Math.sin(Q[1])+L[2]*Math.sin(Q[1]+Q[2]));
-        coord_cartesian.setZ(h*Math.cos(Q[0]));
 
-        if(angle==Angle.DEGREES)
-            for(int i=0;i<Q.length;i++)
-                Q[i] = Q[i]*(180/Math.PI);
-        return coord_cartesian;
+        if(angle==Angle.DEGREES) for(int i=0;i<Q.length;i++) Q[i] = Q[i]*(180/Math.PI);
+
+        return new Cartesian(x,y,z);
     }
 }

@@ -17,7 +17,7 @@ public class Window extends PApplet {
     float size;
     PVector origin;
     float rX,rY,zoom;
-    static Cartesian coord_cartesian;
+    static Cartesian coord_cartesian = new Cartesian(0,120,50);;
     public static boolean test = false;
 
     static double angles[];
@@ -28,7 +28,6 @@ public class Window extends PApplet {
     public void settings() {
         size(800, 800, P3D);
         //fullScreen(P3D);
-
     }
 
     @Override
@@ -53,20 +52,22 @@ public class Window extends PApplet {
 
 
         //TODO pruebas FK
-        /**
 
+        /*
+
+        angles = new double[]{0,0,0};
         ForwardK fk = new ForwardK(arm.getL());
-        coord_cartesian = fk.getCartesian(new double[]{20,40,45},Angle.DEGREES);
+        coord_cartesian = fk.getCartesian(angles,Angle.DEGREES);
 
-        angles = new double[]{20,40,45};
         arm.setAngles(angles,Angle.DEGREES);
 
         println("Fk x: "+coord_cartesian.getX() + " y: "+coord_cartesian.getY()+ " z: "+ coord_cartesian.getZ() );
-         **/
 
+        */
 
         //TODO pruebas IK
-        coord_cartesian = new Cartesian(20,80,0);
+
+        //coord_cartesian = new Cartesian(0,120,50);
         InverseK ik2 = new InverseK(arm.getL());
         double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
         arm.setAngles(q2,Angle.DEGREES);
@@ -74,7 +75,6 @@ public class Window extends PApplet {
         System.out.println("--Angulos de ik2 : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
         System.out.println("Coordenadas X,Y y Z : "+coord_cartesian.getX() + " , "+ coord_cartesian.getY() + " , "+coord_cartesian.getZ());
         //arm.setAngles(ik.getAngles(new Cartesian(0,0,130),Angle.RADIANS),Angle.RADIANS);
-        //TODO hasta aqui
 
 
     }
@@ -101,7 +101,11 @@ public class Window extends PApplet {
         noStroke();
         //TODO hasta aqui
         fill(250, 100, 1);
-        translate((float)coord_cartesian.getY() ,(float)coord_cartesian.getZ() , (float)coord_cartesian.getX() );
+        //x->y
+        //y->z
+        //z->x
+        //translate((float)coord_cartesian.getX() ,-(float)coord_cartesian.getZ() , (float)coord_cartesian.getY() );
+        translate((float)coord_cartesian.getX() ,-(float)coord_cartesian.getZ() , (float)coord_cartesian.getY() );
         //TODO hasta aqui
         sphere(2);
         popMatrix();

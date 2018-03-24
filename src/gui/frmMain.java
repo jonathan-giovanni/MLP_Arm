@@ -35,21 +35,21 @@ public class frmMain extends Window {
     private JTextField txtCoordinateX;
     private JTextField txtCoordinateY;
     private JTextField txtCoordinateZ;
-    private int incPlusX, incPlusY, incPlusZ;
 
     public frmMain() {
 
         //modificar para que se inicialize con los valores por defecto
 
         //valores temporales debería inicializarse por defecto con estos valores
-        txtCoordinateX.setText(""+incPlusX);
-        txtCoordinateY.setText(""+incPlusY);
-        txtCoordinateZ.setText(""+incPlusZ);
+        txtCoordinateX.setText(""+coord_cartesian.getX());
+        txtCoordinateY.setText(""+coord_cartesian.getY());
+        txtCoordinateZ.setText(""+coord_cartesian.getZ());
 
 
         txtCoordinateX.addActionListener(a -> {
             coord_cartesian.setX(Double.parseDouble(txtCoordinateX.getText()));
             println(" Coordenada  X " + txtCoordinateX.getText());
+            applyIK();
         });
         txtCoordinateY.addActionListener(a -> {
             coord_cartesian.setY(Double.parseDouble(txtCoordinateY.getText()));
@@ -69,26 +69,31 @@ public class frmMain extends Window {
         btnMinusX.addActionListener(a -> {
             coord_cartesian.decX();
             txtCoordinateX.setText(""+coord_cartesian.getX() );
+            println(" Coordenada  X " + coord_cartesian.getX());
         });
 
         btnPlusY.addActionListener(a -> {
             coord_cartesian.incY();
             txtCoordinateY.setText(""+coord_cartesian.getY() );
+            println(" Coordenada  Y " + coord_cartesian.getX());
         });
 
         btnMinusY.addActionListener(a -> {
             coord_cartesian.decY();
             txtCoordinateY.setText(""+coord_cartesian.getY() );
+            println(" Coordenada  Y " + coord_cartesian.getX());
         });
 
         btnPlusZ.addActionListener(a -> {
             coord_cartesian.incZ();
             txtCoordinateZ.setText(""+coord_cartesian.getZ() );
+            println(" Coordenada  Z " + coord_cartesian.getX());
         });
 
         btnMinusZ.addActionListener(a -> {
             coord_cartesian.decZ();
             txtCoordinateZ.setText(""+coord_cartesian.getZ() );
+            println(" Coordenada  Z " + coord_cartesian.getX());
         });
 
 
@@ -154,19 +159,22 @@ public class frmMain extends Window {
     @Override
     public void settings() {
         super.settings();
+        ik2 = new InverseK(arm.getL());
         JFrame frame = new JFrame("frmMain");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setContentPane(new frmMain().panel1);
         frame.pack();
         frame.setVisible(true);
 
-
     }
 
     @Override
     public void draw() {
-        ik2 = new InverseK(arm.getL());
-        writePos();
+
+
+
+        //arm.setAngles(q2,Angle.DEGREES);
+        //writePos();
         super.draw();
         //if(!test) arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
 
@@ -186,10 +194,15 @@ public class frmMain extends Window {
 
     void writePos(){
         double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
-        arm.setAngles(q2,Angle.RADIANS);
+        arm.setAngles(q2,Angle.DEGREES);
         setTime();
-        coord_cartesian.setX(sin(gTime*PI/2)*20);
+        coord_cartesian.setZ(sin(gTime*PI/2)*20);
         coord_cartesian.setY(90);
-        coord_cartesian.setZ(sin(gTime*PI)*10);
+        coord_cartesian.setX(sin(gTime*PI)*10);
+    }
+
+    void applyIK(){
+        double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
+        System.out.println("Angulos de ik : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
     }
 }

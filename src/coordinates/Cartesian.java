@@ -4,12 +4,12 @@ public class Cartesian {
     private static double X;
     private static double Y;
     private static double Z;
-    private static double STEP;
+    private static double STEP = 1;
 
 
     public Cartesian(){
         X = Y = Z = 0;
-        STEP= 1;
+        STEP = 1;
     }
     public Cartesian(double min,int step){
         X = Y = Z = 0;
