@@ -49,7 +49,6 @@ public class frmMain extends Window {
         txtCoordinateX.addActionListener(a -> {
             coord_cartesian.setX(Double.parseDouble(txtCoordinateX.getText()));
             println(" Coordenada  X " + txtCoordinateX.getText());
-            applyIK();
         });
         txtCoordinateY.addActionListener(a -> {
             coord_cartesian.setY(Double.parseDouble(txtCoordinateY.getText()));
@@ -159,7 +158,7 @@ public class frmMain extends Window {
     @Override
     public void settings() {
         super.settings();
-        ik2 = new InverseK(arm.getL());
+        //ik2 = new InverseK(arm.getL());
         JFrame frame = new JFrame("frmMain");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setContentPane(new frmMain().panel1);
@@ -173,7 +172,9 @@ public class frmMain extends Window {
 
 
 
-        //arm.setAngles(q2,Angle.DEGREES);
+        ik2 = new InverseK(arm.getL());
+        applyIK();
+
         //writePos();
         super.draw();
         //if(!test) arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
@@ -203,6 +204,7 @@ public class frmMain extends Window {
 
     void applyIK(){
         double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
+        arm.setAngles(q2,Angle.DEGREES);
         System.out.println("Angulos de ik : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
     }
 }
