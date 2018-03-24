@@ -41,25 +41,25 @@ public class Arm {
 
         //context.translate(0,0);
 
-        context.scale(-1.20f);
+        context.scale(1.20f);
         /**     base no rotatoria   **/
         context.fill(255, 200, 10,100);
         context.translate(0,26,0); // 0 , 26, 0 para que quede alineado en el centro de los ejes
         context.shape(base);
         /**     base rotatoria      **/
         context.translate(0, 4, 0);
-        context.rotateY((float) Q[1]);//gamma
+        context.rotateY((float) Q[0]);//gamma
         context.shape(shoulder);
         /**     antebrazo           **/
         context.fill(60, 200, 130);
         context.translate(0, 25, 0);
-        context.rotateY(context.PI);
-        context.rotateX((float) Q[2]);//alpha
+        //context.rotateY(context.PI);
+        context.rotateX((float) (-Q[1]));//alpha
         context.shape(upArm);
         /**      brazo               **/
         context.translate(0, 0, 50);
         context.rotateY(context.PI);
-        context.rotateX((float) Q[0]);//beta
+        context.rotateX((float) (Q[2] ));//beta
         context.shape(loArm);
         /**     orientacion         **/
         context.fill(140, 200, 100);

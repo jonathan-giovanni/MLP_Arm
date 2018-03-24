@@ -169,24 +169,14 @@ public class frmMain extends Window {
 
     @Override
     public void draw() {
-
-
-
         ik2 = new InverseK(arm.getL());
         applyIK();
-
         //writePos();
         super.draw();
         //if(!test) arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
-
-
         // calculando ik
-
-
         //q2[0]+=180;
     }
-
-
     void setTime(){
         gTime += ((float)millis()/1000 - millisOld)*(gSpeed/4);
         if(gTime >= 4)  gTime = 0;
