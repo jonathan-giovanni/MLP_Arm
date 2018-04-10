@@ -3,6 +3,7 @@ package gui;
 
 import coordinates.Angle;
 import coordinates.Cartesian;
+import kinematics.ForwardK;
 import kinematics.InverseK;
 
 import javax.swing.*;
@@ -77,24 +78,28 @@ public class frmMain extends Window {
             coord_cartesian.incY();
             txtCoordinateY.setText(""+coord_cartesian.getY() );
             println(" Coordenada  Y " + coord_cartesian.getX());
+            applyIK();
         });
 
         btnMinusY.addActionListener(a -> {
             coord_cartesian.decY();
             txtCoordinateY.setText(""+coord_cartesian.getY() );
             println(" Coordenada  Y " + coord_cartesian.getX());
+            applyIK();
         });
 
         btnPlusZ.addActionListener(a -> {
             coord_cartesian.incZ();
             txtCoordinateZ.setText(""+coord_cartesian.getZ() );
             println(" Coordenada  Z " + coord_cartesian.getX());
+            applyIK();
         });
 
         btnMinusZ.addActionListener(a -> {
             coord_cartesian.decZ();
             txtCoordinateZ.setText(""+coord_cartesian.getZ() );
             println(" Coordenada  Z " + coord_cartesian.getX());
+            applyIK();
         });
 
         //angles
@@ -192,7 +197,7 @@ public class frmMain extends Window {
     @Override
     public void draw() {
         //ik2 = new InverseK(arm.getL());
-        //applyIK();
+        applyIK();
         //writePos();
         super.draw();
         //if(!test) arm.setAngles(new double[]{radians(frameCount),0,0}, Angle.RADIANS);
@@ -215,9 +220,32 @@ public class frmMain extends Window {
     }
 
     void applyIK(){
-        double q2[] = ik2.getAngles(coord_cartesian,Angle.DEGREES);
-        arm.setAngles(q2,Angle.DEGREES);
-        System.out.println("Angulos de ik : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
+
+        //InverseK ikT = new InverseK(arm.getL());
+        //double q2[] = ikT.getAngles(coord_cartesian,Angle.DEGREES);
+
+        //TODO modificar aqui antes del ARM.java
+        //arm.setAngles(q2,Angle.DEGREES);
+
+
+
+
+        fill(100, 250, 1);
+        if(arm!=null) {
+            //ForwardK fk2 = new ForwardK(arm.getL());
+            //Cartesian c = fk2.getCartesian(angles, Angle.DEGREES);
+            Cartesian c = coord_cartesian;
+            InverseK ik2 = new InverseK(arm.getL());
+
+            arm.setAngles( ik2.getAngles(c,Angle.DEGREES), Angle.DEGREES);
+
+
+            //y->z
+            //z->y
+            //translate((float)c.getX() ,-(float)c.getZ() , (float)c.getY() );
+            //sphere(2);
+        }
+        System.out.println("Angulos de ik : q1 -> "+angles[0]+" q2 -> "+angles[1]+" q3-> "+angles[2]);
     }
 
 }

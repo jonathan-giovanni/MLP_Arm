@@ -22,11 +22,11 @@ public class InverseK {
         System.out.println("d " + d);
 
         Q[0] = atan2(coord.getX(),coord.getY());
-        Q[2] = acos(( pow(d,2) - pow(L[2],2) - pow(L[1],2) )/(2*L[1]*L[2]));
-        Q[1] = atan2(r,coord.getZ()-L[0]) - atan2(L[1] + L[2]*cos(Q[2]),L[2]*sin(Q[2]));
+        Q[2] = -PI +  acos(( pow(d,2) - pow(L[2],2) - pow(L[1],2) )/(2*L[1]*L[2]));
+        Q[1] =  atan2(r,coord.getZ()-L[0]) - atan2(L[1] + L[2]*cos(Q[2]),L[2]*sin(Q[2]));
         System.out.println("Q[0]  "+Q[0] + " Q[1] " +Q[1] + " Q[2] "+Q[2] );
 
-        Q[1] *= -1;
+        //Q[1] *= -1;
         //Q[2] += -PI/2;
 
         if (angle == Angle.DEGREES) for (int i = 0; i < Q.length; i++) Q[i] = Q[i] * 180 / PI;

@@ -17,16 +17,18 @@ public class Window extends PApplet {
     float size;
     PVector origin;
     float rX,rY,zoom;
-    static Cartesian coord_cartesian = new Cartesian(0,120,50);;
+    static Cartesian coord_cartesian = new Cartesian(0,135,65);
     public static boolean test = false;
 
     static double angles[];
 
     static Arm arm;
     InverseK ik;
+    ForwardK fk;
     @Override
     public void settings() {
         size(800, 800, P3D);
+
         //fullScreen(P3D);
     }
 
@@ -42,13 +44,14 @@ public class Window extends PApplet {
         rY      = -0.65f;
         arm     = new Arm(this);
         ik      = new InverseK(arm.getL());
+        fk      = new ForwardK(arm.getL());
         angles  = new double[]{0,0,0};
 /***
  *              RANGO DE ANGULOS VALIDOS SOBRE LOS EJES
  *              ________________________________________
  *          q1 = {0,360}  -> vuelta completa
- *          q2 = {40,-90} -> negativos hacia arriba
- *          q3 = {-90,90} -> negativos hacia abajo
+ *          q2 = {40,-90} -> negativos hacia arriba IMPORTANTE
+ *          q3 = {-90,90} -> negativos hacia abajo esta ok
  * */
 
 
@@ -67,6 +70,7 @@ public class Window extends PApplet {
         */
 
         //TODO pruebas IK
+        /*
 
         //coord_cartesian = new Cartesian(0,120,50);
         InverseK ik2 = new InverseK(arm.getL());
@@ -76,8 +80,7 @@ public class Window extends PApplet {
         System.out.println("--Angulos de ik2 : q1 -> "+q2[0]+" q2 -> "+q2[1]+" q3-> "+q2[2]);
         System.out.println("Coordenadas X,Y y Z : "+coord_cartesian.getX() + " , "+ coord_cartesian.getY() + " , "+coord_cartesian.getZ());
         //arm.setAngles(ik.getAngles(new Cartesian(0,0,130),Angle.RADIANS),Angle.RADIANS);
-
-
+        */
     }
 
     @Override
@@ -94,22 +97,24 @@ public class Window extends PApplet {
         drawAxes();
 
 
-        hint(ENABLE_DEPTH_TEST);
+        //hint(ENABLE_DEPTH_TEST);
 
 
 
+        /**pos REAL**/
         pushMatrix();
         noStroke();
-        //TODO hasta aqui
         fill(250, 100, 1);
-        //x->y
         //y->z
-        //z->x
-        //translate((float)coord_cartesian.getX() ,-(float)coord_cartesian.getZ() , (float)coord_cartesian.getY() );
+        //z->y
         translate((float)coord_cartesian.getX() ,-(float)coord_cartesian.getZ() , (float)coord_cartesian.getY() );
-        //TODO hasta aqui
         sphere(2);
         popMatrix();
+
+
+
+        /**Comprobando IK atravez de FK**/
+
 
 
         pushMatrix();
@@ -154,14 +159,14 @@ public class Window extends PApplet {
         line(-size,0,0,size,0,0);
 
         //Y verde
-        text("-Y",2,margin,0);
-        text("+Y",2,-margin,0);
+        text("-Z",2,margin,0);
+        text("+Z",2,-margin,0);
         stroke(0, 210, 0);
         line(0,-size,0,0,size,0);
 
         //Z azul
-        text("+Z",5,0,margin);
-        text("-Z",5,0,-margin);
+        text("+Y",5,0,margin);
+        text("-Y",5,0,-margin);
         stroke(0, 0, 210);
         line(0, 0, -size,0,0, size);
     }

@@ -16,7 +16,10 @@ public class Arm {
     public Arm(PApplet pApplet){
         context     = pApplet;
         //TODO se puede modificar la longitud de cada elemento
-        L = new double[]{50,50,70};
+        //base      -> 65
+        //brazo     -> 60
+        //antebrazo -> 75
+        L = new double[]{65,60,75};
         //TODO hasta aqui
         Q = new double[]{0,0,0};
 
@@ -39,8 +42,10 @@ public class Arm {
 
     public void drawArm(){
 
-        //context.translate(0,0);
+        /**Tony trabajara aqui**/
+        //TODO Modificar esto para mover el brazo de manera correcta
 
+        //context.translate(0,0);
         context.scale(-1.20f);
         /**     base no rotatoria   **/
         context.fill(255, 200, 10,100);
@@ -51,18 +56,18 @@ public class Arm {
         context.rotateY((float) Q[0]);//gamma
         context.shape(shoulder);
         /**     antebrazo           **/
-        context.fill(60, 200, 130);
+        context.fill(60, 200, 130,100);
         context.translate(0, 25, 0);
         context.rotateY(context.PI);
-        context.rotateX((float) (-Q[1]));//alpha
+        context.rotateX((float) (Q[1]));//alpha
         context.shape(upArm);
         /**      brazo               **/
         context.translate(0, 0, 50);
         context.rotateY(context.PI);
-        context.rotateX((float) (Q[2] ));//beta
+        context.rotateX((float) (Q[2]  ));//beta
         context.shape(loArm);
         /**     orientacion         **/
-        context.fill(140, 200, 100);
+        context.fill(140, 200, 100,100);
         context.translate(0, 0, -50);
         context.rotateY(context.PI);
         context.shape(end);

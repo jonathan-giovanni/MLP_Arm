@@ -9,6 +9,18 @@ import mlp.transferfunctions.HyperbolicTransfer;
 import mlp.transferfunctions.SigmoidalTransfer;
 import processing.core.PApplet;
 
+/**
+        +Z  -Y
+         |  /
+         | /
+         |/
+ -X------/-------+X
+        /|
+       / |
+      /  |
+    +Y  -Z
+ **/
+
 public class Main {
 
     public static void main(String[] args) {
